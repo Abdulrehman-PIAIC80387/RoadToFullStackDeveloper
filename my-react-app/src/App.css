@@ -40,3 +40,28 @@
 .read-the-docs {
   color: #888;
 }
+
+/* Background with gradient */
+.login-bg {
+  background: linear-gradient(to right, #4b6cb7, #182848);
+  font-family: "Poppins", sans-serif;
+}
+
+/* Card styling */
+.login-card {
+  width: 420px;
+  border-radius: 15px;
+  background: #ffffffcc; /* Glass effect */
+  backdrop-filter: blur(6px);
+}
+
+/* Link styling */
+.custom-link {
+  text-decoration: none;
+  color: #4b6cb7;
+}
+
+.custom-link:hover {
+  text-decoration: underline;
+}
+
