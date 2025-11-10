@@ -65,3 +65,19 @@
   text-decoration: underline;
 }
 
+.divlogin {
+  top: 80%;
+  left: 50%;
+  width: 300px;
+  height: 300px;
+  border: 2px outset green;
+  padding: 10px;
+  margin: 10;
+}
+
+.loginFooter {
+  margin-top: 10;
+  border: 2px green dotted;
+color:red;
+}
+

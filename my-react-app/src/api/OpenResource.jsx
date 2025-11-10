@@ -52,7 +52,7 @@ function OpenResource() {
         </tbody>
       </table>
 
-      {/* Pagination */}
+
       <div style={{ marginTop: "20px" }}>
         <button
           onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}

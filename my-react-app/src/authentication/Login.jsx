@@ -1,63 +1,55 @@
-import React from "react";
-import { Link, useNavigate } from "react-router-dom";
+// src/pages/Login.jsx
+import { useState } from "react";
+import { useMutation } from "@tanstack/react-query";
+import { authService } from "../api/authService.jsx";
 
 export default function Login() {
-  const navigate = useNavigate();
+  const [form, setForm] = useState({ username: "", password: "" });
 
-  function handleSubmit(e) {
+  const { mutate, isPending, error } = useMutation({
+    mutationFn: authService.login,
+    onSuccess: () => {
+      console.log("Login successful");
+      // redirect if needed
+    },
+  });
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    alert("Logged in (fake)! Redirecting to /");
-    navigate("/");
-  }
+    mutate(form);
+  };
 
   return (
-    <div className="container d-flex justify-content-center align-items-center min-vh-100 login-bg">
-      <div className="card shadow p-4 login-card">
-        <h3 className="text-center mb-4 fw-bold">Sign In</h3>
+    <form onSubmit={handleSubmit} className="max-w-md mx-auto mt-10 space-y-4">
+      <h2>Login</h2>
 
-        <form onSubmit={handleSubmit}>
-          <div className="mb-3">
-            <label htmlFor="mail" className="form-label fw-semibold">
-              Email Address
-            </label>
-            <input
-              type="email"
-              id="mail"
-              className="form-control"
-              placeholder="Enter email"
-            />
-          </div>
+      <input
+        placeholder="Email"
+        type="email"
+        className="w-full border p-2 rounded"
+        onChange={(e) =>
+          setForm((prev) => ({
+            ...prev,
+            username: e.target.value,
+          }))
+        }
+      />
 
-          <div className="mb-3">
-            <label htmlFor="password" className="form-label fw-semibold">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              className="form-control"
-              placeholder="Enter password"
-            />
-          </div>
+      <input
+        placeholder="Password"
+        type="password"
+        className="w-full border p-2 rounded"
+        onChange={(e) => setForm((prev) => ({ ...prev, password: e.target.value }))}
+      />
 
-          <button type="submit" className="btn btn-primary w-100 mb-3">
-            Login
-          </button>
+      {error && <p style={{ color: "red" }}>{error.message}</p>}
 
-          <div className="text-center">
-            <Link to="/forgot-password" className="custom-link">
-              Forgot Password?
-            </Link>
-          </div>
-        </form>
-
-        <p className="text-center mt-3">
-          Don’t have an account?{" "}
-          <Link to="/signup" className="fw-bold custom-link">
-            Sign up
-          </Link>
-        </p>
-      </div>
-    </div>
+      <button
+        disabled={isPending}
+        className="w-full bg-black text-white p-2 rounded"
+      >
+        {isPending ? "Processing..." : "Login"}
+      </button>
+    </form>
   );
 }
